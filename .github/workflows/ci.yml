@@ -47,7 +47,7 @@ jobs:
           retention-days: 7
 
       - name: SonarCloud Security Scan
-        if: sucess()
+        if: success()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
