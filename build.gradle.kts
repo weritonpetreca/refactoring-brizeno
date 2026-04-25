@@ -74,12 +74,13 @@ subprojects {
 	configure<DependencyCheckExtension> {
 		failBuildOnCVSS = 7.0f
 
+		data {
+			directory = "${System.getProperty("user.home")}/.nvd-data"
+		}
+
 		nvd {
 			apiKey = System.getenv("NVD_API_KEY") ?: ""
 			delay = 3000
-		}
-		analyzers {
-			ossIndexEnabled = false
 		}
 	}
 }
