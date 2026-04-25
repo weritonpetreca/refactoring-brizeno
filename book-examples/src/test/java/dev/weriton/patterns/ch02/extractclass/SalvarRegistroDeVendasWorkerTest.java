@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+@SuppressWarnings("java:S2187")
 @DisplayName("Testes do Worker de Salvamento de Registros de Venda")
 class SalvarRegistroDeVendasWorkerTest {
 

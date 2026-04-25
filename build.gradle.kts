@@ -49,8 +49,12 @@ subprojects {
 		finalizedBy("jacocoTestReport")
 	}
 
-	tasks.named("jacocoTestReport") {
+	tasks.named<JacocoReport>("jacocoTestReport") {
 		dependsOn("test")
+		reports {
+			xml.required = true
+			html.required = true
+		}
 	}
 
 	tasks.named<JacocoCoverageVerification>("jacocoTestCoverageVerification") {
@@ -69,6 +73,10 @@ subprojects {
 
 	configure<DependencyCheckExtension> {
 		failBuildOnCVSS = 7.0f
+
+		data {
+			directory = "${System.getProperty("user.home")}/.nvd-data"
+		}
 
 		nvd {
 			apiKey = System.getenv("NVD_API_KEY") ?: ""
