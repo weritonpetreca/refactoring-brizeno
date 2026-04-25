@@ -10,6 +10,7 @@ class ArquivoFtpTest {
 
     @Test
     @DisplayName("Deve garantir a igualdade e hashcode baseados no conteúdo do array")
+    @SuppressWarnings("java:S5785")
     void deveCompararConteudoCorretamente() {
 
         ArquivoFtp arquivoOriginal = new ArquivoFtp("relatorio.csv", new byte[]{1, 0, 1});
@@ -17,13 +18,13 @@ class ArquivoFtpTest {
         ArquivoFtp arquivoConteudoDiferente = new ArquivoFtp("relatorio.csv", new byte[]{0, 0, 0});
         ArquivoFtp arquivoNomeDiferente = new ArquivoFtp("outro.csv", new byte[]{1, 0, 1});
 
-        assertSame(arquivoOriginal, arquivoOriginal);// Caminho: (this == o) return true
-        assertEquals(arquivoOriginal, arquivoClone); // Caminho: igualdade real de conteúdo
+        assertSame(arquivoOriginal, arquivoOriginal);
+        assertEquals(arquivoOriginal, arquivoClone);
 
-        assertNotEquals(null, arquivoOriginal); // Caminho: (o == null) return false
-        assertNotEquals(arquivoOriginal, new Object()); // Caminho: getClass() != o.getClass()
-        assertNotEquals(arquivoOriginal, arquivoConteudoDiferente); // Caminho: arrays diferentes
-        assertNotEquals(arquivoOriginal, arquivoNomeDiferente); // Caminho: nomes diferentes
+        assertFalse(arquivoOriginal.equals(null));
+        assertFalse(arquivoOriginal.equals(new Object()));
+        assertNotEquals(arquivoOriginal, arquivoConteudoDiferente);
+        assertNotEquals(arquivoOriginal, arquivoNomeDiferente);
 
         assertEquals(arquivoOriginal.hashCode(), arquivoClone.hashCode());
         assertNotEquals(arquivoOriginal.hashCode(), arquivoConteudoDiferente.hashCode());
