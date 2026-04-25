@@ -59,5 +59,17 @@ class SalvarRegistroDeVendasWorkerTest {
 
             verify(gerenciadorMock, never()).requisitarFtp(any());
         }
+
+        @Test
+        @DisplayName("Deve rejeitar a execução se o caminho do arquivo for vazio ou contiver apenas espaços")
+        void deveRejeitarCaminhoVazioOuEspacos() {
+            GerenciadorFtp gereciadorMock = mock(GerenciadorFtp.class);
+            RepositorioDeVendas repositorioMock = mock(RepositorioDeVendas.class);
+
+            SalvarRegistroDeVendasWorker worker = new SalvarRegistroDeVendasWorker(gereciadorMock, repositorioMock);
+
+            assertThrows(IllegalArgumentException.class, () -> worker.executar(""));
+            assertThrows(IllegalArgumentException.class, () -> worker.executar("   "));
+        }
     }
 }
