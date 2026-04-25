@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GerenciadorFtp {
 
+    private final String host;
+    private final int port;
     private final String usuario;
     private final String senha;
     private final ClienteFtp clienteFtp;

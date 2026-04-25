@@ -8,7 +8,7 @@ public class SalvarRegistroDeVendasWorker {
     private final GerenciadorFtp gerenciadorFtp;
     private final RepositorioDeVendas repositorioDeVendas;
 
-    public void executar(String caminhoArquivo) {
+    public void requisitarFtp(String caminhoArquivo) {
         if (caminhoArquivo == null || caminhoArquivo.trim().isEmpty()) {
             throw new IllegalArgumentException("O caminho do arquivo não pode ser nulo ou vazio (Possível falha de segurança)");
         }

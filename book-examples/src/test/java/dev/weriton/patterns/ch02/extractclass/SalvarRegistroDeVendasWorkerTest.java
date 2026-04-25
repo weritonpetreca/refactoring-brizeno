@@ -30,7 +30,7 @@ class SalvarRegistroDeVendasWorkerTest {
 
             SalvarRegistroDeVendasWorker worker = new SalvarRegistroDeVendasWorker(gerenciadorMock, repositorioMock);
 
-            worker.executar(caminhoArquivo);
+            worker.requisitarFtp(caminhoArquivo);
 
             verify(gerenciadorMock, times(1)).requisitarFtp(caminhoArquivo);
             verify(repositorioMock, times(1)).salvar(arquivoSimulado);
@@ -52,7 +52,7 @@ class SalvarRegistroDeVendasWorkerTest {
 
             IllegalArgumentException excecao = assertThrows(
                     IllegalArgumentException.class,
-                    () -> worker.executar(null)
+                    () -> worker.requisitarFtp(null)
             );
 
             assertEquals("O caminho do arquivo não pode ser nulo ou vazio (Possível falha de segurança)", excecao.getMessage());
@@ -68,8 +68,8 @@ class SalvarRegistroDeVendasWorkerTest {
 
             SalvarRegistroDeVendasWorker worker = new SalvarRegistroDeVendasWorker(gereciadorMock, repositorioMock);
 
-            assertThrows(IllegalArgumentException.class, () -> worker.executar(""));
-            assertThrows(IllegalArgumentException.class, () -> worker.executar("   "));
+            assertThrows(IllegalArgumentException.class, () -> worker.requisitarFtp(""));
+            assertThrows(IllegalArgumentException.class, () -> worker.requisitarFtp("   "));
         }
     }
 }

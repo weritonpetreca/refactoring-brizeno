@@ -14,7 +14,7 @@ class GerenciadorFtpTest {
     void deveRequisitarFtpComSucesso() {
 
         ClienteFtp clienteMock = mock(ClienteFtp.class);
-        GerenciadorFtp gerenciador = new GerenciadorFtp("admin", "senha123", clienteMock);
+        GerenciadorFtp gerenciador = new GerenciadorFtp("ftp.examplo.com",21,"admin", "senha123", clienteMock);
 
         ArquivoFtp arquivoEsperado = new ArquivoFtp("dados.csv", new byte[]{1, 2, 3});
         when(clienteMock.buscarArquivo("/caminho/dados.csv")).thenReturn(arquivoEsperado);
