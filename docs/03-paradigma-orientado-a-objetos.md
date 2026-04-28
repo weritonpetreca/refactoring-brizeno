@@ -1,43 +1,126 @@
-# Capítulo 3: Java e o Paradigma Orientado a Objetos
-Nas próximas seções do livro, vamos aplicar alguns dos padrões descritos pela Gangue dos Quatro. Porém, antes de mergulhar neles, vamos avaliar algumas características da linguagem Java que impactam diretamente na utilização dos padrões.
+# 🐺 Capítulo 3: Java e o Paradigma Orientado a Objetos — A Filosofia do Bruxo
 
-## 3.1 Pensando orientado a objetos
-O paradigma orientado a objetos nos faz pensar no design da aplicação em termos de objetos trocando mensagens.
+> *"Um bruxo não é apenas um guerreiro. Ele é um sistema de regras, mutações e
+> escolhas — cada parte separada, mas cooperando em harmonia. Isso é Orientação a Objetos."*
 
-### Mensagens e estado
-Alan Kay, criador da programação orientada a objetos, descreve a linguagem usando a metáfora de células biológicas: objetos se comunicariam utilizando mensagens, visando proteger e esconder seu estado interno.
+Antes de mergulhar nos padrões da Gangue dos Quatro, precisamos dominar a linguagem
+em que eles vivem. Java é estaticamente tipado — isso nos dá segurança, mas exige
+mais código para obter flexibilidade. Entender essas características é o que separa
+um desenvolvedor que *usa* padrões de um que os *compreende*.
 
-* Uma célula não altera a estrutura interna de outra, elas apenas trocam mensagens por meio de estímulos.
+**Referência:** Brizeno, M. *Refatorando com Padrões de Projeto: Um Guia em Java*. Casa do Código, Cap. 3.
+**Repositório oficial do livro:** [github.com/MarcosX/rppj](https://github.com/MarcosX/rppj)
 
-* Uma vez recebido o estímulo externo, o estado interno da célula sofrerá modificações.
+---
 
-* A definição de Orientação a Objetos é fortemente baseada nesses dois conceitos: **mensagens e estado**.
+## 3.1 Pensando Orientado a Objetos — Mensagens e Estado
 
-O estado de um objeto é basicamente composto por seus atributos, representando uma parte do mundo virtual modelado. Ter o estado interno escondido e protegido centraliza as mudanças dentro dos objetos, acionadas por mensagens através de uma **interface** (conjunto de métodos).
+Alan Kay, criador da programação orientada a objetos, descreve a linguagem com
+a metáfora de células biológicas: objetos se comunicam por **mensagens**, protegendo
+e escondendo seu estado interno — exatamente como Geralt protege seus sinais internos
+do mundo exterior.
 
-### Padrões orientados a objetos e Tipagem
-O impacto principal da tipagem no uso de padrões é a necessidade de criar mais classes em linguagens de tipagem estática (como Java e C++) para permitir a troca de tipos.
+> *Brizeno, Cap. 3, seção 3.1*
 
-* Tipagem Estática: Exige declaração explícita de tipo. Um mecanismo de herança e polimorfismo é necessário para facilitar a troca de tipos sem perda de informação.
+| Conceito | Biologia (Kay) | Programação OO |
+|---|---|---|
+| **Célula** | Unidade com estado protegido | Objeto com atributos privados |
+| **Estímulo externo** | Mensagem química enviada | Chamada de método público |
+| **Reação interna** | Mudança de estado da célula | Alteração dos atributos internos |
+| **Encapsulamento** | Uma célula não altera diretamente outra | Um objeto não modifica atributos alheios |
 
-* Tipagem Dinâmica: (Ex: Smalltalk) Não requer declaração de tipo. Qualquer tipo passado será atribuído e o único requisito é que o método esteja declarado no tipo referenciado.
+O estado de um objeto é composto por seus **atributos**. Tê-lo escondido e protegido
+centraliza as mudanças dentro dos objetos, acionadas por mensagens através de uma
+**interface** — o conjunto de métodos públicos.
 
-## 3.2 Características do Java
-Java é estaticamente tipado, o que dá mais segurança contra erros em tempo de execução, mas exige mais código para obter flexibilidade.
+---
 
-### Polimorfismo
-A ideia de utilizar um objeto de um tipo genérico e poder mudar sua implementação por outros objetos é chamada de **polimorfismo**.
+## 3.2 Características do Java — O Arsenal do Bruxo
 
-* Exemplo: A interface `List` serve como base para `ArrayList` e `LinkedList`. O código que utiliza a variável do tipo `List` não sofre alterações ao trocar a implementação.
+> *Brizeno, Cap. 3, seção 3.2*
 
-### Sobrecarga e sobrescrita de métodos
-* **Sobrescrever (@Override):** Elimina completamente o código original do método da classe pai para redefinir o comportamento.
+### Polimorfismo — A Espada que se Adapta
 
-* **Sobrecarregar:** Adiciona mais regras à lógica que já existia.
+A ideia de usar um objeto de tipo genérico e poder trocar sua implementação é
+chamada de **polimorfismo**. É o que permite ao Bruxo usar qualquer arma que
+respeite o contrato de `Arma`:
 
-### Interfaces e classes abstratas
-São formas de alcançar o polimorfismo definindo um "contrato".
+```java
+// Contrato (interface) — o "tipo genérico"
+public interface Arma {
+    int getDano();
+    int getBonusVelocidade();
+}
 
-* **Interface:** Representa um contrato puro, sem lógica (ex: interface `Arma`).
+// Implementação — uma arma específica
+public class Adaga implements Arma {
+    @Override public int getDano() { return 10; }
+    @Override public int getBonusVelocidade() { return 3; }
+}
+```
 
-* **Classe Abstrata:** Pode implementar métodos comuns a todas as classes que a herdam, evitando repetição de código (ex: `danoComArmaQuebrada()` em uma classe abstrata `Arma`).
+> *O código que usa `Arma` não sofre alteração ao trocar `Adaga` por `EspadaDePrata` —
+> desde que ambas respeitem o contrato.* (Brizeno, Cap. 3)
+
+### Tipagem Estática vs. Dinâmica — Segurança vs. Flexibilidade
+
+| Característica | Java (Estática) | Smalltalk (Dinâmica) |
+|---|---|---|
+| **Declaração de tipo** | Obrigatória em tempo de compilação | Não necessária |
+| **Erros** | Detectados em compilação | Detectados em execução |
+| **Flexibilidade** | Requer interfaces e herança | Qualquer tipo pode ser passado |
+| **Impacto nos padrões** | Mais classes necessárias para flexibilidade | Padrões mais simples de implementar |
+
+> *"O impacto principal da tipagem no uso de padrões é a necessidade de criar mais
+> classes em linguagens de tipagem estática para permitir a troca de tipos."*
+> — Brizeno, Cap. 3, seção 3.1
+
+### Sobrecarga vs. Sobrescrita — Dois Feitiços Diferentes
+
+| | Sobrescrita (`@Override`) | Sobrecarga |
+|---|---|---|
+| **O que faz** | Redefine completamente o comportamento herdado | Adiciona novas regras à lógica existente |
+| **Assinatura** | Mesma assinatura da classe pai | Assinaturas diferentes (parâmetros distintos) |
+| **Polimorfismo** | ✅ Sim — o tipo em tempo de execução decide | ❌ Não — decidido em tempo de compilação |
+| **Exemplo** | `toString()` em `Estudante` | `calcular(int)` e `calcular(int, int)` |
+
+```java
+// Sobrescrita — Ciri redefine como ela se apresenta ao mundo
+@Override
+public String toString() {
+    return "Nome: " + nome + "\nSerie: " + serie;
+}
+```
+
+📂 Código: [`ch03/paradigma`](../book-examples/src/main/java/dev/weriton/patterns/ch03/paradigma)
+
+### Interfaces vs. Classes Abstratas — Contrato vs. Herança Parcial
+
+| | Interface | Classe Abstrata |
+|---|---|---|
+| **Define** | Contrato puro — *o que* fazer | Comportamento parcial — *como* fazer parte |
+| **Implementação** | Nenhuma (antes do Java 8) | Pode ter métodos concretos |
+| **Herança múltipla** | ✅ Uma classe pode implementar várias | ❌ Java permite apenas uma herança |
+| **Caso de uso** | Polimorfismo desacoplado | Compartilhar código entre subclasses relacionadas |
+| **Exemplo no livro** | `interface Arma` | `abstract class Arma` com `danoComArmaQuebrada()` |
+
+> *"Uma interface representa um contrato puro, enquanto uma classe abstrata pode
+> implementar métodos comuns a todas as classes que a herdam, evitando repetição
+> de código."* — Brizeno, Cap. 3, seção 3.2
+
+---
+
+## Por Que Isso Importa para os Padrões?
+
+Os padrões da Gangue dos Quatro foram criados em um mundo de tipagem estática.
+Cada padrão que veremos nos próximos capítulos usa **interfaces**, **herança** e
+**polimorfismo** como ferramentas fundamentais.
+
+| Padrão (próx. caps.) | Mecanismo OO usado |
+|---|---|
+| Factory | Interface + polimorfismo |
+| Strategy | Interface + injeção de dependência |
+| Decorator | Herança + composição |
+| Template Method | Classe abstrata + sobrescrita |
+
+Dominar este capítulo é montar o equipamento antes de partir para a Caçada.

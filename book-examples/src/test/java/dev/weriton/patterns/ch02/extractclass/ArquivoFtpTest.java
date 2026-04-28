@@ -5,6 +5,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Testes do record {@link ArquivoFtp} — Brizeno, Cap. 2, seção 2.5
+ *
+ * <p>O {@code record} do Java 21 não gera {@code equals}/{@code hashCode}
+ * corretos para {@code byte[]} por padrão (usa referência). Estes testes
+ * garantem que os overrides manuais comparam o <b>conteúdo</b> do array
+ * corretamente via {@link java.util.Arrays#equals}.
+ */
 @DisplayName("Testes da Entidade ArquivoFtp (Cobertura de Overrides)")
 class ArquivoFtpTest {
 

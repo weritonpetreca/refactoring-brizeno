@@ -28,6 +28,10 @@ subprojects {
 		targetCompatibility = JavaVersion.VERSION_21
 	}
 
+	configurations.testRuntimeClasspath {
+		exclude(group = "org.slf4j", module = "slf4j-simple")
+	}
+
 	dependencies {
 		val lombokVersion = "1.18.46"
 		val junitVersion = "6.0.3"

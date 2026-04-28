@@ -1,6 +1,14 @@
 package dev.weriton.patterns.ch03.paradigma;
 
-public class Adaga implements Arma {
+/**
+ * Implementação concreta de {@link Arma} — Brizeno, Cap. 3
+ *
+ * <p>Demonstra como uma subclasse fornece os detalhes específicos do contrato
+ * definido pela classe abstrata. O {@link #danoComArmaQuebrada()} herdado
+ * automaticamente retorna {@code 5} (metade de {@code 10}) sem nenhuma
+ * implementação adicional — reuso via herança.
+ */
+public class Adaga extends Arma {
 
     @Override
     public int getDano() {

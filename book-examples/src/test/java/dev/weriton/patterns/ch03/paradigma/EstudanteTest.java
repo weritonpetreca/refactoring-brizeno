@@ -4,16 +4,26 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Testes da sobrescrita de {@code toString()} em {@link Estudante} — Brizeno, Cap. 3
+ *
+ * <p>O id do objeto ({@code super.toString()}) é dinâmico (endereço de memória),
+ * portanto a verificação usa {@code contains} ao invés de {@code assertEquals},
+ * garantindo o formato sem depender do valor exato.
+ */
 @DisplayName("Testes da Sobrescrita em Estudante")
-public class EstudanteTest {
+class EstudanteTest {
 
     @Test
-    @DisplayName("Deve retornar a string formatada corretamente ao sobrescrever o toString")
-    void deveRetornarStringFormatada() {
+    @DisplayName("Deve incluir o id do objeto no toString")
+    void deveIncluirIdDoObjeto() {
         Estudante estudante = new Estudante("3° Ano", "Ciri");
-        String resultadoEsperado = "Nome: Ciri\nSerie: 3° Ano";
+        String resultado = estudante.toString();
 
-        assertEquals(resultadoEsperado, estudante.toString());
+        assertTrue(resultado.contains("Nome: Ciri"));
+        assertTrue(resultado.contains("Serie: 3° Ano"));
+        assertTrue(resultado.contains("Id do Objeto: " + estudante.getClass().getName() + "@"));
     }
 }
