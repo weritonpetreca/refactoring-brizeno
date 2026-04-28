@@ -8,6 +8,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+/**
+ * Testes do {@link SalvarRegistroDeVendasWorker} — Brizeno, Cap. 2, seção 2.5
+ *
+ * <p>Valida o comportamento do worker após a refatoração com <b>Extrair Classe</b>.
+ * Organizado em {@code @Nested} para separar o cenário de sucesso dos cenários
+ * de segurança (Shift-Left), tornando a intenção de cada grupo explícita.
+ */
 @SuppressWarnings("java:S2187")
 @DisplayName("Testes do Worker de Salvamento de Registros de Venda")
 class SalvarRegistroDeVendasWorkerTest {
